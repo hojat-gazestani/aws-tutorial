@@ -52,3 +52,8 @@ FLASK_APP=application.py /usr/local/bin/flask run --host=0.0.0.0 --port=80
 ```bash
 http://<Public IPv4 address>
 ```
+
+# Cleaning up
+```text
+EC2 > Instance state > Stop instance
+```
