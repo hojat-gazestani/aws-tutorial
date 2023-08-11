@@ -54,34 +54,3 @@ Description > DNS name
 http://app-elb-123456789012.us-west-2.elb.amazonaws.com
 ```
 
-# Creating the launch template
-
-```text
-EC2 > Instances > Launch Templates > Create launch template
-Launch template name: app-launch-template
-Template version description: A web server for the employee directory application
-Auto Scaling guidance: Provide guidance to help me set up a template that I can use with EC2 Auto Scaling
-Application and OS Images (Amazon Machine Image) - required: Currently in use
-Instance type: t2.micro
-Key pair name: app-key-pair
-Security groups: web-security-group
-
-Advanced details
-IAM instance profile: S3DynamoDBFullAccessRole
-
-User data
-```
-
-```shell
-#!/bin/bash -ex
-wget https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/DEV-AWS-MO-GCNv2/FlaskApp.zip
-unzip FlaskApp.zip
-cd FlaskApp/
-yum -y install python3-pip
-pip install -r requirements.txt
-yum -y install stress
-export PHOTOS_BUCKET=${SUB_PHOTOS_BUCKET}
-export AWS_DEFAULT_REGION=<INSERT REGION HERE>
-export DYNAMO_MODE=on
-FLASK_APP=application.py /usr/local/bin/flask run --host=0.0.0.0 --port=80
-```
